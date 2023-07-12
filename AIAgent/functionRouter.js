@@ -1,7 +1,6 @@
 const { Configuration, OpenAIApi } = require("openai");
 const { AIMessage, HumanMessage } = require("langchain/schema");
-const dotenv = require("dotenv");
-dotenv.config({ path: "../.env" });
+require("dotenv").config({ path: require("find-config")("../.env") });
 const configuration = new Configuration({
   apiKey: process.env.OPEN_AI,
 });
@@ -51,30 +50,33 @@ const ai = async (message) => {
    * See an example in talalInfo.js
    */
   const functions = [sendMailFuncAi, talalInfoFuncAi];
-
-  //It takes the message an redirects it to the propper function
-  const response = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo-0613",
-    messages: messages,
-    functions: functions,
-    function_call: "auto",
-  });
-  const callFunc = response.data.choices[0].message.function_call;
-  if (!!callFunc) {
-    const name = callFunc.name;
-    const arguments = JSON.parse(callFunc.arguments);
-    if (name === "sendMail") {
-      const res = await sendMail(arguments.message, arguments.mail);
-      pastMessages.push(new AIMessage(res));
-      return res;
+  try {
+    //It takes the message an redirects it to the propper function
+    const response = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo-0613",
+      messages: messages,
+      functions: functions,
+      function_call: "auto",
+    });
+    const callFunc = response.data.choices[0].message.function_call;
+    if (!!callFunc) {
+      const name = callFunc.name;
+      const arguments = JSON.parse(callFunc.arguments);
+      if (name === "sendMail") {
+        const res = await sendMail(arguments.message, arguments.mail);
+        pastMessages.push(new AIMessage(res));
+        return res;
+      }
+      if (name === "talalInformation") {
+        const res = await talalInfoAnswering(arguments.question);
+        pastMessages.push(new AIMessage(res));
+        return res;
+      }
+    } else {
+      return conversationMem(message);
     }
-    if (name === "talalInformation") {
-      const res = await talalInfoAnswering(arguments.question);
-      pastMessages.push(new AIMessage(res));
-      return res;
-    }
-  } else {
-    conversationMem(message);
+  } catch (error) {
+    return error;
   }
 };
 

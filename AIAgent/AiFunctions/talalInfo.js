@@ -13,6 +13,10 @@ const { RetrievalQAChain } = require("langchain/chains");
 const path = require("path");
 require("dotenv").config({ path: require("find-config")("../.env") });
 
+/**
+ * Retrieves all the information about Talal
+ */
+
 const talalInfoAnswering = async (question) => {
   const filePath = path.resolve(__dirname, "../Information/Talal.txt");
 

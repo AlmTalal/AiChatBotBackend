@@ -1,3 +1,7 @@
+/**
+ * It will be implmeneted in the future for sending mails
+ */
+
 const sendMailFuncAi = {
   name: "sendMail",
   description: "Sends a mail to anyone",

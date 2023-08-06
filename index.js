@@ -1,15 +1,19 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-//routers
-const aiChatBot = require("./routers/aiChatBot");
+const chatBotSockets = require("socket.io")(3001, {
+  cors: {
+    origin: "*",
+  },
+});
+const ai = require("./AIAgent/functionRouter");
 
 app.use(express.json());
 app.use(cors());
-app.use("/chatbot", aiChatBot);
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`${port}`);
+chatBotSockets.on("connection", (socket) => {
+  socket.on("sendMessage", async (message) => {
+    const answer = await ai(message);
+    socket.emit("response", answer);
+  });
 });

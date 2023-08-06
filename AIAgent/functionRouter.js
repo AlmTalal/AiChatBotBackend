@@ -1,6 +1,4 @@
 const { Configuration, OpenAIApi } = require("openai");
-const { AIMessage, HumanMessage } = require("langchain/schema");
-require("dotenv").config({ path: require("find-config")("../.env") });
 const configuration = new Configuration({
   apiKey: process.env.OPEN_AI,
 });
@@ -16,19 +14,20 @@ const {
   talalInfoFuncAi,
 } = require("./AiFunctions/talalInfo");
 const { sendMailFuncAi } = require("./AiFunctions/sendMail");
-const { conversationMem, pastMessages } = require("./conversationMem");
 
 //Takes the user message
-const ai = async (message) => {
+const ai = async (message, pastMessages) => {
   const messages = [
-    { role: "system", content: "You are a rude assitant" },
+    {
+      role: "system",
+      content:
+        "You are the personal assistant of Talal, your name is Bolt and you are my dog too",
+    },
     {
       role: "user",
       content: message,
     },
   ];
-
-  pastMessages.push(new HumanMessage(message));
 
   /**
    * Here you put all the functions that you need in this object:
@@ -51,7 +50,7 @@ const ai = async (message) => {
    */
   const functions = [sendMailFuncAi, talalInfoFuncAi];
   try {
-    //It takes the message an redirects it to the propper function
+    //It takes the message and redirects it to the propper function
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo-0613",
       messages: messages,
@@ -64,16 +63,14 @@ const ai = async (message) => {
       const arguments = JSON.parse(callFunc.arguments);
       if (name === "sendMail") {
         const res = await sendMail(arguments.message, arguments.mail);
-        pastMessages.push(new AIMessage(res));
         return res;
       }
       if (name === "talalInformation") {
         const res = await talalInfoAnswering(arguments.question);
-        pastMessages.push(new AIMessage(res));
         return res;
       }
     } else {
-      return conversationMem(message);
+      return response.data.choices[0].message.content;
     }
   } catch (error) {
     return error;

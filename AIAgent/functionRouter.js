@@ -1,6 +1,5 @@
 const { Configuration, OpenAIApi } = require("openai");
 require("dotenv").config({ path: require("find-config")("../.env") });
-
 const configuration = new Configuration({
   apiKey: process.env.OPEN_AI,
 });
@@ -16,9 +15,11 @@ const {
   talalInfoFuncAi,
 } = require("./AiFunctions/talalInfo");
 const { sendMailFuncAi } = require("./AiFunctions/sendMail");
+const { conversationMem } = require("./conversationMem");
 
 //Takes the user message
-const ai = async (message, pastMessages) => {
+const ai = async (data) => {
+  const { message, pastMessages } = data;
   const messages = [
     {
       role: "system",
@@ -72,7 +73,7 @@ const ai = async (message, pastMessages) => {
         return res;
       }
     } else {
-      return response.data.choices[0].message.content;
+      return conversationMem(message, pastMessages);
     }
   } catch (error) {
     return error;

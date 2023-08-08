@@ -1,10 +1,10 @@
-Quien es Talal ? 
+Here is some information of Talal, It talks about his Family, professional Background, professional success, professional ambition and a couple of other things
 
-Greetings! I am Talal, a passionate 20-year-old Software Engineer with a burning ambition to excel in the field. My ultimate goal is to become the best version of myself as a software engineer by working diligently and constantly learning from experienced seniors and colleagues.
-Multilingual and highly adaptable, I am fluent in Spanish (my native language), English, and Arabic. This linguistic versatility allows me to communicate effectively and collaborate in diverse teams.
-Professionally, my expertise lies in the MERN Stack, and I have successfully developed smart contracts on the Ethereum network. My enthusiasm for web3 technologies is unwavering, and I am eager to explore and learn all there is to know about it.
+Talal is a passionate 20-year-old Software Engineer with a burning ambition to excel in the field. His ultimate goal is to become the best version of Himself as a software engineer by working diligently and constantly learning from experienced seniors and colleagues.
+He is Multilingual and highly adaptable, fluent in Spanish (His native language), English, and Arabic. This linguistic versatility allows him to communicate effectively and collaborate in diverse teams.
+Professionally, his expertise lies in the MERN Stack, and he has successfully developed smart contracts on the Ethereum network. His enthusiasm for web3 technologies is unwavering, aTnd He is eager to explore and learn all there is to know about it.
 Personal Background:
-Born in Venezuela in 2003, I was raised in a multicultural environment. My parents instilled in me the ability to speak, write, and read Arabic, while various courses and experiences helped me acquire fluency in English. As a self-taught developer, my journey began in March 2022 with a keen interest in algorithms and data structures. I am highly driven, and I will not rest until I become one of the best in my field.
+Talal were Born in Venezuela in 2003, he was raised in a multicultural environment. His parents instilled him the ability to speak, write, and read Arabic, while various courses and experiences helped him acquire fluency in English. As a self-taught developer, his journey began in March 2022 with a keen interest in algorithms and data structures. He is highly driven, and He will not rest until he becomes one of the best in the field.
 Top Skills:
 - Algorithm Development
 - JavaScript

@@ -37,7 +37,8 @@ const talalInfoAnswering = async (question) => {
   });
 
   const docs = await splitter.splitDocuments(loader, [], {
-    chunkHeader: "Talal Alam Information",
+    chunkHeader:
+      "Here is some information of Talal, It talks about his Family, professional Background, professional success, professional ambition and a couple of other things ",
     appendChunkOverlapHeader: true,
   });
 

@@ -12,8 +12,6 @@ app.use(express.json());
 app.use(cors());
 
 chatBotSockets.on("connection", (socket) => {
-  const hello = "Hello Frontend";
-  socket.broadcast.emit("webStatusIs", { message: hello });
   socket.on("sendMessage", async (message) => {
     const answer = await ai(message);
     socket.emit("response", answer);

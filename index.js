@@ -16,8 +16,4 @@ chatBotSockets.on("connection", (socket) => {
     const answer = await ai(message);
     socket.emit("response", answer);
   });
-
-  socket.on("webStatus", (message) => {
-    socket.broadcast.emit("webStatusIs", message);
-  });
 });

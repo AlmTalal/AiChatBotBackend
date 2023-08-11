@@ -1,19 +1,19 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
-const chatBotSockets = require("socket.io")(3001, {
+require("dotenv").config({ path: require("find-config")("./.env") });
+const { MongoClient } = require("mongodb");
+
+const socketServer = require("socket.io")(3001, {
   cors: {
     origin: "*",
   },
 });
-const ai = require("./AIAgent/functionRouter");
+const client = new MongoClient(process.env.MONGODB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-app.use(express.json());
-app.use(cors());
+//Socket events
+const chatBotSendMsg = require("./SocketEvents/ChatBotSendMsg");
 
-chatBotSockets.on("connection", (socket) => {
-  socket.on("sendMessage", async (message) => {
-    const answer = await ai(message);
-    socket.emit("response", answer);
-  });
+socketServer.on("connection", (socket) => {
+  chatBotSendMsg(socket);
 });

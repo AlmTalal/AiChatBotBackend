@@ -16,4 +16,7 @@ const chatBotSendMsg = require("./SocketEvents/ChatBotSendMsg");
 
 socketServer.on("connection", (socket) => {
   chatBotSendMsg(socket);
+  socket.on("disconnect", () => {
+    socket.disconnect();
+  });
 });

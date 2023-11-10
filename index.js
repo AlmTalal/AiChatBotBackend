@@ -1,5 +1,8 @@
-require("dotenv").config({ path: require("find-config")("./.env") });
-const { MongoClient } = require("mongodb");
+import dotenv from "dotenv";
+import findConfig from "find-config";
+import { MongoClient } from "mongodb";
+
+dotenv.config({ path: findConfig("./.env") });
 
 const socketServer = require("socket.io")(3001, {
   cors: {
@@ -12,7 +15,7 @@ const client = new MongoClient(process.env.MONGODB, {
 });
 
 //Socket events
-const chatBotSendMsg = require("./SocketEvents/ChatBotSendMsg");
+import chatBotSendMsg from "./SocketEvents/ChatBotSendMsg";
 
 socketServer.on("connection", (socket) => {
   chatBotSendMsg(socket);
